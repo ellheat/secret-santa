@@ -1,5 +1,12 @@
-import { render } from 'preact'
-import { App } from './app.tsx'
-import './index.css'
+import { render } from 'preact';
+import { App } from './app.tsx';
+import GlobalStyle from './theme/global.ts';
+import { Global } from '@emotion/react';
 
-render(<App />, document.getElementById('app')!)
+render(
+    <>
+        <Global styles={GlobalStyle} />
+        <App />
+    </>,
+    document.getElementById('app')!,
+);
