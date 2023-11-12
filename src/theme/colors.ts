@@ -1,4 +1,4 @@
-export const beige = '#FFF5E0';
+export const beige = '#FCF5ED';
 export const lightRed = '#FF6969';
 export const navy = '#141E46';
 export const red = '#BB2525';

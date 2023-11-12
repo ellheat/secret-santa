@@ -1,10 +1,10 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { addParticipant } from '../../firebase/addParticipant';
-import { Form, Button } from './letterForm.styles';
-import { TextField } from '@mui/material';
+import { Form, Input, Button, SuccessMessage } from './letterForm.styles';
 
 type FormValues = {
     email: string;
+    address: string;
     description: string;
 };
 
@@ -12,22 +12,49 @@ const LetterForm = () => {
     const {
         register,
         handleSubmit,
-        formState: { errors },
+        formState: { errors, isSubmitting, isSubmitted },
     } = useForm<FormValues>();
+
     const onSubmit: SubmitHandler<FormValues> = (values) => addParticipant(values);
 
-    return (
-        <Form onSubmit={handleSubmit(onSubmit)}>
-            <TextField id="outlined-basic" label="Outlined" variant="standard" />
-            <input {...register('email', { required: true })} />
-            {errors.email && <span>This field is required</span>}
-            {/* <TextField id="outlined-basic2" label="Outlined2" variant="outlined" /> */}
-            <input {...register('description', { required: true })} />
-            {errors.description && <span>This field is required</span>}
+    const renderSentState = <SuccessMessage>The letter has been sent to Santa!</SuccessMessage>;
 
-            <Button variant="contained">Submit</Button>
+    const renderForm = (
+        <Form onSubmit={handleSubmit(onSubmit)}>
+            <Input
+                label="Email"
+                variant="outlined"
+                {...register('email', { required: 'Email field is required' })}
+                error={!!errors.email}
+                helperText={errors.email?.message}
+                autoComplete="off"
+            />
+            <Input
+                label="Locker address"
+                variant="outlined"
+                {...register('address', { required: 'Locker address field is required' })}
+                error={!!errors.address}
+                helperText={errors.address?.message}
+                autoComplete="off"
+            />
+            <Input
+                label="About you"
+                variant="outlined"
+                {...register('description', { required: 'About you field is required' })}
+                error={!!errors.description}
+                helperText={errors.description?.message}
+                multiline
+                minRows={5}
+                maxRows={5}
+                autoComplete="off"
+            />
+            <Button type="submit" variant="contained" disabled={isSubmitting}>
+                Submit
+            </Button>
         </Form>
     );
+
+    return isSubmitted ? renderSentState : renderForm;
 };
 
 export default LetterForm;

@@ -16,14 +16,19 @@ const GlobalStyle = css`
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         -webkit-text-size-adjust: 100%;
+        width: 100%;
     }
 
-    body {
+    #root {
         display: flex;
         align-items: center;
         justify-content: center;
-        height: 100vh;
-        width: 100%;
+        padding: 16px;
+    }
+
+    p {
+        margin: 0;
+        padding: 0;
     }
 `;
 
