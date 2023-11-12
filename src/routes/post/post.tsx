@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import List from '@mui/material/List';
-import { ListItem } from '@mui/material';
 import { DocumentData } from 'firebase/firestore';
-import { Participant, getParticipants } from '../../firebase/getParticipants';
+import { getParticipants } from '../../firebase/getParticipants';
+import { ParticipantsList } from '../../components';
+import { MatchParticipants } from '../../components/matchParticipants';
 
 export const Post = () => {
     const [participants, setParticipants] = useState<DocumentData>([]);
@@ -12,10 +12,9 @@ export const Post = () => {
     }, []);
 
     return (
-        <List>
-            {participants.map((participant: Participant) => (
-                <ListItem key={participant.email}>{participant.email}</ListItem>
-            ))}
-        </List>
+        <>
+            <ParticipantsList participants={participants} />
+            <MatchParticipants participants={participants} />
+        </>
     );
 };
