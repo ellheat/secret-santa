@@ -13,7 +13,9 @@ export const Post = () => {
 
     return (
         <>
+            {/* @ts-expect-error back here in the future */}
             <ParticipantsList participants={participants} />
+            {/* @ts-expect-error back here in the future */}
             <MatchParticipants participants={participants} />
         </>
     );
